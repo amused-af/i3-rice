@@ -1,0 +1,17 @@
+[options]
+font = Source Code Pro 11
+
+# Scrollback buffer length
+scrollback_lines = 10000
+
+[colors]
+# If both of these are unset, cursor falls back to the foreground color,
+# and cursor_foreground falls back to the background color.
+#cursor = #dcdccc
+#cursor_foreground = #dcdccc
+foreground = #66CDAA
+foreground_bold = #ffffff
+background = rgba(0, 0, 0, 0.8)
+
+# If unset, will reverse foreground and background
+highlight = #000000
