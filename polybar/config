@@ -137,9 +137,9 @@ label-disconnected =  disconnected
 type = internal/date
 interval = 60
 
-date-alt = " %Y-%m-%d"
+date-alt = "  %m-%d-%Y"
 
-time = %l:%M %p
+time =  %l:%M %p
 
 label = %date% %time%
 
