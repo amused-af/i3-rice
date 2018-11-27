@@ -140,7 +140,7 @@ interval = 60
 
 date-alt = "  %m-%d-%Y"
 
-time =  %l:%M %p
+time = %l:%M %p
 
 label = %date% %time%
 
