@@ -177,6 +177,8 @@ bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 5%-
 # Screenshot controls
 bindsym Print exec --no-startup-id maim | xclip -selection clipboard -t image/png
 bindsym Shift+Print exec --no-startup-id maim -s | xclip -selection clipboard -t image/png
+bindsym ctrl+Print exec --no-startup-id maim ~/Pictures/screenshots/$(date +%H:%M:%S)_$(date +%m-%d-%y).png
+bindsym ctrl+Shift+Print exec --no-startup-id maim -s ~/Pictures/screenshots/$(date +%H:%M:%S)_$(date +%m-$d-%y).png
 
 # i3-gaps settings
 for_window [class="^.*"] border pixel 0
