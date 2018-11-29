@@ -1,3 +1,5 @@
+#!/bin/sh
+
 # Fallback font for applications
 sudo pacman -S --noconfirm ttf-dejavu
 

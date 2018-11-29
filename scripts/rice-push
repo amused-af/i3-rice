@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 cp -r ~/.config/i3 ~/.git/i3-rice
 cp -r ~/.config/termite ~/.git/i3-rice
