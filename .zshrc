@@ -104,5 +104,8 @@ if [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
 	exec startx
 fi
 
-# Sets correct tty for GPG to use (not sure if this is necessary)
+# Set correct tty for GPG to use (not sure if this is necessary)
 export GPG_TTY=$(tty)
+
+# Python system variables
+export PYTHONSTARTUP=~/.pythonstartup

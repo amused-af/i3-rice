@@ -3,6 +3,7 @@
 cp -r ~/.config/i3 ~/.git/i3-rice
 cp -r ~/.config/termite ~/.git/i3-rice
 cp -r ~/.config/polybar ~/.git/i3-rice
+cp -r ~/.config/gtk-3.0 ~/.git/i3-rice
 cp -r /etc/pacman.d/hooks ~/.git/i3-rice
 cp ~/Pictures/.wallpapers/* ~/.git/i3-rice/wallpapers
 cp ~/.config/compton.conf ~/.git/i3-rice/compton
