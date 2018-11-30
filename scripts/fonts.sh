@@ -14,3 +14,6 @@ sudo pacman -S --noconfirm adobe-source-han-serif-otc-fonts
 
 # Google fonts for websites to render correctly
 sudo pacman -S --noconfirm noto-fonts
+
+# Icon font
+sudo pacman -S --noconfirm ttf-font-awesome
