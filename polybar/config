@@ -136,7 +136,7 @@ label-disconnected =  disconnected
 
 [module/date]
 type = internal/date
-interval = 60
+interval = 5
 
 date-alt = "  %m-%d-%Y"
 
