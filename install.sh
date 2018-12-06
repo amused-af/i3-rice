@@ -155,7 +155,7 @@ deploy () {
 	cp ./.zshrc ~/.zshrc
 	echo "Copying pacman hooks..."
 	mkdir /etc/pacman.d/hooks >/dev/null 2>&1
-	cp ./hooks/* /etc/pacman.d/hooks
+	cp ./pacman/hooks/* /etc/pacman.d/hooks
 	echo "Copying PATH scripts..."
 	mkdir ~/.bin >dev/null 2>&1
 	cp ./.bin/* ~/.bin
