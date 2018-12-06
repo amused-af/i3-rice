@@ -83,7 +83,7 @@ mgmnt () {
 	echo "Installing yay, an AUR manager..."
 	git clone https://aur.archlinux.org/yay.git >/dev/null
 	cd ./yay
-	runuser -u "$dotusr" -c 'makepkg -sri' >/dev/null
+	su -c 'makepkg -sri --noconfirm' "$dotusr" >/dev/null
 	cd ..
 	clear
 }
@@ -116,50 +116,50 @@ i3deps () {
 	pacman -S --noconfirm i3-gaps >/dev/null
 	echo "Adding i3-gaps to xinit..."
 	pacman -S --noconfirm xorg-xinit >/dev/null
-	runuser -u "$dotusr" -c 'echo "exec i3" >> ~/.xinitrc'
+	su -c 'echo "exec i3" >> ~/.xinitrc' "$dotusr"
 	echo "Installing rofi..."
 	pacman -S --noconfirm rofi >/dev/null
 	# Audio and brightness controls
 	if [[ "$lappy" = true ]]; then
-		runuser -u "$dotusr" -c 'yay -S --noconfirm pulseaudio-ctl >/dev/null'
-		runuser -u "$dotusr" -c 'yay -S --noconfirm brightnessctl >/dev/null'
+		su -c 'yay -S --noconfirm pulseaudio-ctl >/dev/null' "$dotusr"
+		su -c 'yay -S --noconfirm brightnessctl >/dev/null' "$dotusr"
 	fi
 	echo "Installing compton compositor..."
 	pacman -S --noconfirm compton >/dev/null
 	echo "Installing programs for taking and saving screenshots..."
 	pacman -S --noconfirm maim xclip >/dev/null
 	echo "Installing programs for locking the screen..."
-	runuser -u "$dotusr" -c 'yay -S --noconfirm i3lock-fancy-git >/dev/null'
+	su -c 'yay -S --noconfirm i3lock-fancy-git >/dev/null' "$dotusr"
 }
 
 deploy () {
 	echo "Now deploying config files and other data:"
 	echo "Copying i3 config..."
-	runuser -u "$dotusr" -c 'mkdir ~/.config/i3 >/dev/null 2>&1'
-	runuser -u "$dotusr" -c 'cp ./i3/config ~/.config/i3/config'
+	su -c 'mkdir ~/.config/i3 >/dev/null 2>&1' "$dotusr"
+	su -c 'cp ./i3/config ~/.config/i3/config' "$dotusr"
 	echo "Copying termite config..."
-	runuser -u "$dotusr" -c 'mkdir ~/.config/termite >/dev/null 2>&1'
-	runuser -u "$dotusr" -c 'cp ./termite/config ~/.config/termite/config'
+	su -c 'mkdir ~/.config/termite >/dev/null 2>&1' "$dotusr"
+	su -c 'cp ./termite/config ~/.config/termite/config' "$dotusr"
 	echo "Copying compton config..."
-	runuser -u "$dotusr" -c 'cp ./compton/compton.conf ~/.config/compton.conf'
+	su -c 'cp ./compton/compton.conf ~/.config/compton.conf' "$dotusr"
 	echo "Copying zshrc..."
-	runuser -u "$dotusr" -c 'cp ./.zshrc ~/.zshrc'
+	su -c 'cp ./.zshrc ~/.zshrc' "$dotusr"
 	echo "Copying pacman hooks..."
 	mkdir /etc/pacman.d/hooks >/dev/null 2>&1
 	cp ./pacman/hooks/* /etc/pacman.d/hooks
 	echo "Copying PATH scripts..."
-	runuser -u "$dotusr" -c 'mkdir ~/.bin >dev/null 2>&1'
-	runuser -u "$dotusr" -c 'cp ./.bin/* ~/.bin'
+	su -c 'mkdir ~/.bin >dev/null 2>&1' "$dotusr"
+	su -c 'cp ./.bin/* ~/.bin' "$dotusr"
 	echo "Copying wallpapers..."
-	runuser -u "$dotusr" -c 'mkdir ~/Pictures/.wallpapers >/dev/null 2>&1'
-	runuser -u "$dotusr" -c 'cp ./wallpapers/* ~/Pictures/.wallpapers'
+	su -c 'mkdir ~/Pictures/.wallpapers >/dev/null 2>&1' "$dotusr"
+	su -c 'cp ./wallpapers/* ~/Pictures/.wallpapers' "$dotusr"
 }
 
 pbdeploy () {
 	echo "Compiling and installing polybar."
 	echo "This might take a couple minutes."
 	sleep 1
-	runuser -u "$dotusr" -c 'yay -S polybar'
+	su -c 'yay -S polybar' "$dotusr"
 	pacman -S --noconfirm jsoncpp >/dev/null
 }
 
