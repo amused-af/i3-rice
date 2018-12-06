@@ -156,8 +156,8 @@ pbdeploy () {
 	su -c 'yay -S polybar' "$dotusr"
 	pacman -S --noconfirm jsoncpp >/dev/null
 	mkdir /home/"$dotusr"/.config/polybar
-	cp ./polybar/* /home/"$dotusr"/polybar
-	chmod +x /home/"$dotusr"/polybar/launch.sh
+	cp ./polybar/* /home/"$dotusr"/.config/polybar
+	chmod +x /home/"$dotusr"/.config/launch.sh
 }
 
 
@@ -170,7 +170,6 @@ while ! [[ "$input" = true ]]; do
 		init
 		drivers
 		mgmnt
-		usercreate
 		fonts
 		i3deps
 		deploy
