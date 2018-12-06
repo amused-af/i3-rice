@@ -1,9 +1,9 @@
-#!/bin/bash
+#!/bin/sh
 
 cp -r ~/.config/i3 ~/.git/i3-rice
 cp -r ~/.config/termite ~/.git/i3-rice
 cp -r ~/.config/polybar ~/.git/i3-rice
-cp -r /etc/pacman.d/hooks ~/.git/i3-rice
+cp -r /etc/pacman.d/hooks/ ~/.git/i3-rice/pacman
 cp ~/Pictures/.wallpapers/* ~/.git/i3-rice/wallpapers
 cp ~/.config/compton.conf ~/.git/i3-rice/compton
 cp ~/.zshrc ~/.git/i3-rice
