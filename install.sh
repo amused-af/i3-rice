@@ -54,18 +54,18 @@ drivers () {
 	while ! [[ "$input" = true ]]; do
 		read gpu
 		if [[ "$gpu" = A ]] || [[ "$gpu" = a ]]; then
-			echo "Now installing AMD open source drivers..."
+			echo "Installing AMD open source drivers..."
 			pacman -S --noconfirm xf86-video-amdgpu mesa &>/dev/null
 			input=true
 		fi
 		if [[ "$gpu" = I ]] || [[ "$gpu" = i ]]; then
 			echo "Intel graphics will work best with Xorg's built-in modesetting driver, so there's no need to install an independent driver."
-			echo "Now installing mesa..."
+			echo "Installing mesa..."
 			pacman -S --noconfirm mesa &>/dev/null
 			input=true
 		fi
 		if [[ "$gpu" = N ]] || [[ "$gpu" = n ]]; then
-			echo "Now installing Nvidia drivers and utilities..."
+			echo "Installing Nvidia drivers and utilities..."
 			pacman -S --noconfirm nvidia nvidia-utils &>/dev/null
 			input=true
 		fi
@@ -74,10 +74,12 @@ drivers () {
 		fi
 	done
 	input=false
+	echo "Installing pulseaudio..."
+	pacman -S --noconfirm pulseaudio pulseaudio-alsa pavucontrol &>/dev/null 
 }
 
 mgmnt () {
-	echo "Now installing programs for package and file management:"
+	echo "Installing programs for package and file management:"
 	echo "Installing archiver..."
 	pacman -S --noconfirm file-roller unrar p7zip &>/dev/null
 }
@@ -127,7 +129,7 @@ i3deps () {
 }
 
 deploy () {
-	echo "Now deploying config files and other data:"
+	echo "Deploying config files and other data:"
 	echo "Copying i3 config..."
 	mkdir /home/"$dotusr"/.config/i3
 	cp ./i3/config /home/"$dotusr"/.config/i3/config
