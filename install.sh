@@ -5,7 +5,7 @@
 ### (more info to be added)
 
 
-# Check if the script is being run as a normal user
+# Check if the script is being run as root
 if ! [[ $(id -u) = 0 ]]; then
 	echo "This script needs to be run as root. Please try running it again using sudo."
 	exit 1
