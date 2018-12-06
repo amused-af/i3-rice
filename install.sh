@@ -43,7 +43,7 @@ init () {
 	pacman-key --populate archlinux &>/dev/null
 	echo "Creating standard user directories..."
 	pacman -S --noconfirm xdg-user-dirs &>/dev/null
-	xdg-user-dirs-update &>/dev/null
+	su -c 'xdg-user-dirs-update' "$dotusr" &>/dev/null
 	echo "Implementing Gnome Virtual File System (may take a while)..."
 	pacman -S --noconfirm gvfs &>/dev/null
 }
@@ -209,6 +209,7 @@ echo "7. Polybar compiling and deployment"
 
 while ! [[ "$input" = true ]]; do
 	read selection
+	clear
 	if [[ "$selection" = *"1"* ]]; then
 		init
 		input=true
