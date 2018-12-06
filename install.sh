@@ -180,7 +180,7 @@ while ! [[ "$input" = true ]]; do
 		pbdeploy
 		exit 0
 	fi
-	if [[ "$fulldeploy" = N]] || [[ "$fulldeploy" = n ]]; then
+	if [[ "$fulldeploy" = N ]] || [[ "$fulldeploy" = n ]]; then
 		input=true
 	fi
 	if ! [[ "$input" = true ]]; then
