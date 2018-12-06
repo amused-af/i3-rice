@@ -126,6 +126,9 @@ i3deps () {
 	echo "Installing i3-gaps and dependencies used in my config:" 
 	echo "Installing i3-gaps..."
 	pacman -S --noconfirm i3-gaps >/dev/null
+	echo "Adding i3-gaps to xinit..."
+	pacman -S --noconfirm xorg-xinit
+	echo "exec i3" >> ~/.xinitrc
 	echo "Installing rofi..."
 	pacman -S --noconfirm rofi >/dev/null
 	# Audio and brightness controls
