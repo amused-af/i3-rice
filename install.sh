@@ -110,20 +110,20 @@ i3deps () {
 	pacman -S --noconfirm i3-gaps >/dev/null
 	echo "Adding i3-gaps to xinit..."
 	pacman -S --noconfirm xorg-xinit >/dev/null
-	su -c 'echo "exec i3" >> ~/.xinitrc' "$dotusr"
+	echo "exec i3" >> /home/"$dotusr"/.xinitrc
 	echo "Installing rofi..."
 	pacman -S --noconfirm rofi >/dev/null
 	# Audio and brightness controls
 	if [[ "$lappy" = true ]]; then
-		su -c 'yay -S --noconfirm pulseaudio-ctl >/dev/null' "$dotusr"
-		su -c 'yay -S --noconfirm brightnessctl >/dev/null' "$dotusr"
+		su -c 'yay -S --noconfirm pulseaudio-ctl' "$dotusr" >/dev/null
+		su -c 'yay -S --noconfirm brightnessctl' "$dotusr" >/dev/null
 	fi
 	echo "Installing compton compositor..."
 	pacman -S --noconfirm compton >/dev/null
 	echo "Installing programs for taking and saving screenshots..."
 	pacman -S --noconfirm maim xclip >/dev/null
 	echo "Installing programs for locking the screen..."
-	su -c 'yay -S --noconfirm i3lock-fancy-git >/dev/null' "$dotusr"
+	su -c 'yay -S --noconfirm i3lock-fancy-git' "$dotusr" >/dev/null
 }
 
 deploy () {
@@ -157,7 +157,7 @@ pbdeploy () {
 	pacman -S --noconfirm jsoncpp >/dev/null
 	mkdir /home/"$dotusr"/.config/polybar
 	cp ./polybar/* /home/"$dotusr"/.config/polybar
-	chmod +x /home/"$dotusr"/.config/launch.sh
+	chmod +x /home/"$dotusr"/.config/polybar/launch.sh
 }
 
 
@@ -167,13 +167,22 @@ echo "Input Y to deploy the entire rice, or N to see a list of specific parts to
 while ! [[ "$input" = true ]]; do
 	read fulldeploy
 	if [[ "$fulldeploy" = Y ]] || [[ "$fulldeploy" = y ]]; then
+		clear
 		init
+		clear
 		drivers
+		clear
 		mgmnt
+		clear
 		fonts
+		clear
 		i3deps
+		clear
 		deploy
+		clear
 		pbdeploy
+		clear
+		echo "Rice deployment complete."
 		exit 0
 	fi
 	if [[ "$fulldeploy" = N ]] || [[ "$fulldeploy" = n ]]; then
@@ -191,7 +200,7 @@ echo "Select which parts of the rice you want to be deployed."
 echo "You can choose multiple parts like so: '1,3,4,5'"
 echo "1. Initial preparation (pacman config, gvfs implementation)"
 echo "2. Driver installation"
-echo "3. User account creation"
+echo "3. File management tools installation"
 echo "4. Fonts installation"
 echo "5. i3 and dependencies used in my config installation"
 echo "6. Config deployment"
@@ -208,7 +217,7 @@ while ! [[ "$input" = true ]]; do
 		input=true
 	fi
 	if [[ "$selection" = *"3"* ]]; then
-		usercreate
+		mgmnt
 		input=true
 	fi
 	if [[ "$selection" = *"4"* ]]; then
