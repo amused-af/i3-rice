@@ -11,10 +11,36 @@ Dotfiles and other saved configurations for my i3-gaps rice.
 * [i3lock-fancy](https://github.com/meskarune/i3lock-fancy)
 * [maim](https://github.com/naelstrof/maim)
 
-## Distro specific folders
-1. [Scripts](scripts) contains scripts that I use to automate tasks on my Arch Linux install. Many of these scripts utitlize commands specific to Arch, such as the use of pacman.
-2. [Hooks](hooks) contains pacman hooks to automate certain tasks to correlate with package updates. These are only useful on Arch, or any Arch-based distribution that uses pacman.
+## Distro specific files
+1. [Pacman](pacman) contains configs and hooks for use with pacman, which will only be useful on Arch Linux based distributions.
+2. [Install.sh](install.sh) will automatically install and set up this rice on a fresh installation of *any Arch Linux based distro*. It cannot and will not work on other distributions.
+
+# Installation
+1. Using visudo, uncomment the line `%wheel ALL=(ALL) NOPASSWD: ALL`. **_Don't uncomment the line above it instead. This will prevent the install script from working properly due to a flaw in how `su` works._**
+2. Create a normal user that's part of the `wheel` group.
+```
+# useradd -m -G wheel fooman
+```
+3. Install `git` and `yay`.
+```
+# pacman -S git
+# su fooman
+$ cd ~
+$ git clone https://aur.archlinux.org/yay.git
+$ cd yay
+$ makepkg -sri
+$ cd ..
+$ rm -rf yay
+$ exit
+```
+4. Finally, clone this repo and run [install.sh](install.sh) as root.
+```
+# git clone https://github.com/amused-af/i3-rice.git
+# cd i3-rice
+# chmod +x install.sh
+# ./install.sh
+```
 
 ## Screenshots
-![Clean](screenshots/clean.png)
-![Busy](screenshots/busy.png)
+![Clean](screenshots/clean.png "Clean")
+![Busy](screenshots/busy.png "Busy")
