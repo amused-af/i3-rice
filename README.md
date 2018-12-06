@@ -17,6 +17,7 @@ Dotfiles and other saved configurations for my i3-gaps rice.
 
 # Installation
 1. Using visudo, uncomment the line `%wheel ALL=(ALL) NOPASSWD: ALL`. **_Don't uncomment the line above it instead. This will prevent the install script from working properly due to a flaw in how `su` works._**
+![visudo](screenshots/visudo.png)
 2. Create a normal user that's part of the `wheel` group.
 ```
 # useradd -m -G wheel fooman
