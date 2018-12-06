@@ -30,6 +30,8 @@ while ! [[ "$input" = true ]]; do
 	fi
 done
 input=false
+echo "Which user do you want to setup these dotfiles for?"
+read dotusr
 
 # Functions
 init () {
@@ -81,23 +83,9 @@ mgmnt () {
 	echo "Installing yay, an AUR manager..."
 	git clone https://aur.archlinux.org/yay.git >/dev/null
 	cd ./yay
-	makepkg -sri
+	runuser -u "$dotusr" -c 'makepkg -sri' >/dev/null
 	cd ..
 	clear
-}
-
-usercreate () {
-	echo "What username would you like to set for your user?"
-	read usrname
-	echo "Input any groups you want your user to be a part of, seperated by commas with no space. (the group "wheel" grants the ability to run commands with sudo)"
-	read usrgroups
-	echo "What would you like to set as your user's real name? (this will not be used to log in)"
-	read usrrealname
-	echo "Now creating your user account"	
-	useradd -m -G "$usrgroups" "$usrname"
-	chfn "$usrname" -f ""$usrrealname""
-	echo "What would you like to set as your user's password for login?"
-	passwd -q "$usrname"
 }
 
 fonts () {
@@ -127,51 +115,51 @@ i3deps () {
 	echo "Installing i3-gaps..."
 	pacman -S --noconfirm i3-gaps >/dev/null
 	echo "Adding i3-gaps to xinit..."
-	pacman -S --noconfirm xorg-xinit
-	echo "exec i3" >> ~/.xinitrc
+	pacman -S --noconfirm xorg-xinit >/dev/null
+	runuser -u "$dotusr" -c 'echo "exec i3" >> ~/.xinitrc'
 	echo "Installing rofi..."
 	pacman -S --noconfirm rofi >/dev/null
 	# Audio and brightness controls
 	if [[ "$lappy" = true ]]; then
-		yay -S --noconfirm pulseaudio-ctl >/dev/null
-		yay -S --noconfirm brightnessctl >/dev/null
+		runuser -u "$dotusr" -c 'yay -S --noconfirm pulseaudio-ctl >/dev/null'
+		runuser -u "$dotusr" -c 'yay -S --noconfirm brightnessctl >/dev/null'
 	fi
 	echo "Installing compton compositor..."
 	pacman -S --noconfirm compton >/dev/null
 	echo "Installing programs for taking and saving screenshots..."
 	pacman -S --noconfirm maim xclip >/dev/null
 	echo "Installing programs for locking the screen..."
-	yay -S --noconfirm i3lock-fancy-git >/dev/null
+	runuser -u "$dotusr" -c 'yay -S --noconfirm i3lock-fancy-git >/dev/null'
 }
 
 deploy () {
 	echo "Now deploying config files and other data:"
 	echo "Copying i3 config..."
-	mkdir ~/.config/i3 >/dev/null 2>&1
-	cp ./i3/config ~/.config/i3/config
+	runuser -u "$dotusr" -c 'mkdir ~/.config/i3 >/dev/null 2>&1'
+	runuser -u "$dotusr" -c 'cp ./i3/config ~/.config/i3/config'
 	echo "Copying termite config..."
-	mkdir ~/.config/termite >/dev/null 2>&1
-	cp ./termite/config ~/.config/termite/config
+	runuser -u "$dotusr" -c 'mkdir ~/.config/termite >/dev/null 2>&1'
+	runuser -u "$dotusr" -c 'cp ./termite/config ~/.config/termite/config'
 	echo "Copying compton config..."
-	cp ./compton/compton.conf ~/.config/compton.conf
+	runuser -u "$dotusr" -c 'cp ./compton/compton.conf ~/.config/compton.conf'
 	echo "Copying zshrc..."
-	cp ./.zshrc ~/.zshrc
+	runuser -u "$dotusr" -c 'cp ./.zshrc ~/.zshrc'
 	echo "Copying pacman hooks..."
 	mkdir /etc/pacman.d/hooks >/dev/null 2>&1
 	cp ./pacman/hooks/* /etc/pacman.d/hooks
 	echo "Copying PATH scripts..."
-	mkdir ~/.bin >dev/null 2>&1
-	cp ./.bin/* ~/.bin
+	runuser -u "$dotusr" -c 'mkdir ~/.bin >dev/null 2>&1'
+	runuser -u "$dotusr" -c 'cp ./.bin/* ~/.bin'
 	echo "Copying wallpapers..."
-	mkdir ~/Pictures/.wallpapers >/dev/null 2>&1
-	cp ./wallpapers/* ~/Pictures/.wallpapers
+	runuser -u "$dotusr" -c 'mkdir ~/Pictures/.wallpapers >/dev/null 2>&1'
+	runuser -u "$dotusr" -c 'cp ./wallpapers/* ~/Pictures/.wallpapers'
 }
 
 pbdeploy () {
 	echo "Compiling and installing polybar."
 	echo "This might take a couple minutes."
 	sleep 1
-	yay -S polybar
+	runuser -u "$dotusr" -c 'yay -S polybar'
 	pacman -S --noconfirm jsoncpp >/dev/null
 }
 
@@ -247,4 +235,3 @@ while ! [[ "$input" = true ]]; do
 		echo "Invalid input"
 	fi
 done
-input=false
