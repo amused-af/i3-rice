@@ -80,12 +80,6 @@ mgmnt () {
 	echo "Now installing programs for package and file management:"
 	echo "Installing archiver..."
 	pacman -S --noconfirm file-roller unrar p7zip >/dev/null
-	echo "Installing yay, an AUR manager..."
-	git clone https://aur.archlinux.org/yay.git >/dev/null
-	cd ./yay
-	su -c 'makepkg -sri --noconfirm' "$dotusr" >/dev/null
-	cd ..
-	clear
 }
 
 fonts () {
@@ -135,24 +129,24 @@ i3deps () {
 deploy () {
 	echo "Now deploying config files and other data:"
 	echo "Copying i3 config..."
-	su -c 'mkdir ~/.config/i3 >/dev/null 2>&1' "$dotusr"
-	su -c 'cp ./i3/config ~/.config/i3/' "$dotusr"
+	mkdir /home/"$dotusr"/.config/i3
+	cp ./i3/config /home/"$dotusr"/.config/i3/config
 	echo "Copying termite config..."
-	su -c 'mkdir ~/.config/termite >/dev/null 2>&1' "$dotusr"
-	su -c 'cp ./termite/config ~/.config/termite/' "$dotusr"
+	mkdir /home/"$dotusr"/.config/termite
+	cp ./termite/config /home/"$dotusr"/.config/termite/config
 	echo "Copying compton config..."
-	su -c 'cp ./compton/compton.conf ~/.config/' "$dotusr"
+	cp ./compton/compton.conf /home/"$dotusr"/.config/compton.conf
 	echo "Copying zshrc..."
-	su -c 'cp ./.zshrc ~/' "$dotusr"
+	cp ./.zshrc /home/"$dotusr"/.zshrc
 	echo "Copying pacman hooks..."
-	mkdir /etc/pacman.d/hooks >/dev/null 2>&1
+	mkdir /etc/pacman.d/hooks
 	cp ./pacman/hooks/* /etc/pacman.d/hooks
 	echo "Copying PATH scripts..."
-	su -c 'mkdir ~/.bin >dev/null 2>&1' "$dotusr"
-	su -c 'cp ./.bin/* ~/.bin' "$dotusr"
+	mkdir /home/"$dotusr"/.bin
+	cp ./.bin/* /home/"$dotusr"/.bin
 	echo "Copying wallpapers..."
-	su -c 'mkdir ~/Pictures/.wallpapers >/dev/null 2>&1' "$dotusr"
-	su -c 'cp ./wallpapers/* ~/Pictures/.wallpapers' "$dotusr"
+	mkdir /home/"$dotusr"/Pictures/.wallpapers
+	cp ./wallpapers/* /home/"$dotusr"/Pictures/.wallpapers
 }
 
 pbdeploy () {
@@ -161,9 +155,9 @@ pbdeploy () {
 	sleep 1
 	su -c 'yay -S polybar' "$dotusr"
 	pacman -S --noconfirm jsoncpp >/dev/null
-	su -c 'mkdir ~/.config/polybar >/dev/null 2>&1' "$dotusr"
-	su -c 'cp ./polybar/* ~/.config/polybar >/dev/null 2>&1' "$dotusr"
-	su -c 'chmod +x ~/.config/polybar/launch.sh >/dev/null 2>&1' "$dotusr"
+	mkdir /home/"$dotusr"/.config/polybar
+	cp ./polybar/* /home/"$dotusr"/polybar
+	chmod +x /home/"$dotusr"/polybar/launch.sh
 }
 
 
