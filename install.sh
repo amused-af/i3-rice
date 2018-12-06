@@ -45,7 +45,7 @@ init () {
 	pacman -S --noconfirm xdg-user-dirs >/dev/null
 	xdg-user-dirs-update >/dev/null
 	echo "Implementing Gnome Virtual File System (may take a while)..."
-	pacman -S --noconfirm gvfs >/dev/null
+	pacman -S --noconfirm gvfs >/dev/null 2>&1
 }
 
 drivers () {
@@ -61,12 +61,12 @@ drivers () {
 		if [[ "$gpu" = I ]] || [[ "$gpu" = i ]]; then
 			echo "Now installing mesa..."
 			echo "Intel graphics will work best with Xorg's built-in modesetting driver, so there's no need to install an independent driver."
-			pacman -S --noconfirm mesa
+			pacman -S --noconfirm mesa >/dev/null
 			input=true
 		fi
 		if [[ "$gpu" = N ]] || [[ "$gpu" = n ]]; then
 			echo "Now installing Nvidia drivers and utilities..."
-			pacman -S --noconfirm nvidia nvidia-utils
+			pacman -S --noconfirm nvidia nvidia-utils >/dev/null
 			input=true
 		fi
 		if ! [[ "$input" = true ]]; then
