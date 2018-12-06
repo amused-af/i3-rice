@@ -136,14 +136,14 @@ deploy () {
 	echo "Now deploying config files and other data:"
 	echo "Copying i3 config..."
 	su -c 'mkdir ~/.config/i3 >/dev/null 2>&1' "$dotusr"
-	su -c 'cp ./i3/config ~/.config/i3/config' "$dotusr"
+	su -c 'cp ./i3/config ~/.config/i3/' "$dotusr"
 	echo "Copying termite config..."
 	su -c 'mkdir ~/.config/termite >/dev/null 2>&1' "$dotusr"
-	su -c 'cp ./termite/config ~/.config/termite/config' "$dotusr"
+	su -c 'cp ./termite/config ~/.config/termite/' "$dotusr"
 	echo "Copying compton config..."
-	su -c 'cp ./compton/compton.conf ~/.config/compton.conf' "$dotusr"
+	su -c 'cp ./compton/compton.conf ~/.config/' "$dotusr"
 	echo "Copying zshrc..."
-	su -c 'cp ./.zshrc ~/.zshrc' "$dotusr"
+	su -c 'cp ./.zshrc ~/' "$dotusr"
 	echo "Copying pacman hooks..."
 	mkdir /etc/pacman.d/hooks >/dev/null 2>&1
 	cp ./pacman/hooks/* /etc/pacman.d/hooks
@@ -161,6 +161,9 @@ pbdeploy () {
 	sleep 1
 	su -c 'yay -S polybar' "$dotusr"
 	pacman -S --noconfirm jsoncpp >/dev/null
+	su -c 'mkdir ~/.config/polybar >/dev/null 2>&1' "$dotusr"
+	su -c 'cp ./polybar/* ~/.config/polybar >/dev/null 2>&1' "$dotusr"
+	su -c 'chmod +x ~/.config/polybar/launch.sh >/dev/null 2>&1' "$dotusr"
 }
 
 
