@@ -39,13 +39,13 @@ init () {
 	echo "Copying pacman configuration..."
 	cp ./pacman/pacman.conf /etc/pacman.conf
 	echo "Initializing pacman keyring..."
-	pacman-key --init >/dev/null
-	pacman-key --populate archlinux >./pacman-key.log
+	pacman-key --init &>/dev/null
+	pacman-key --populate archlinux &>/dev/null
 	echo "Creating standard user directories..."
-	pacman -S --noconfirm xdg-user-dirs >/dev/null
-	xdg-user-dirs-update >/dev/null
+	pacman -S --noconfirm xdg-user-dirs &>/dev/null
+	xdg-user-dirs-update &>/dev/null
 	echo "Implementing Gnome Virtual File System (may take a while)..."
-	pacman -S --noconfirm gvfs >/dev/null 2>&1
+	pacman -S --noconfirm gvfs &>/dev/null
 }
 
 drivers () {
@@ -55,18 +55,18 @@ drivers () {
 		read gpu
 		if [[ "$gpu" = A ]] || [[ "$gpu" = a ]]; then
 			echo "Now installing AMD open source drivers..."
-			pacman -S --noconfirm xf86-video-amdgpu mesa >/dev/null
+			pacman -S --noconfirm xf86-video-amdgpu mesa &>/dev/null
 			input=true
 		fi
 		if [[ "$gpu" = I ]] || [[ "$gpu" = i ]]; then
-			echo "Now installing mesa..."
 			echo "Intel graphics will work best with Xorg's built-in modesetting driver, so there's no need to install an independent driver."
-			pacman -S --noconfirm mesa >/dev/null
+			echo "Now installing mesa..."
+			pacman -S --noconfirm mesa &>/dev/null
 			input=true
 		fi
 		if [[ "$gpu" = N ]] || [[ "$gpu" = n ]]; then
 			echo "Now installing Nvidia drivers and utilities..."
-			pacman -S --noconfirm nvidia nvidia-utils >/dev/null
+			pacman -S --noconfirm nvidia nvidia-utils &>/dev/null
 			input=true
 		fi
 		if ! [[ "$input" = true ]]; then
@@ -79,51 +79,51 @@ drivers () {
 mgmnt () {
 	echo "Now installing programs for package and file management:"
 	echo "Installing archiver..."
-	pacman -S --noconfirm file-roller unrar p7zip >/dev/null
+	pacman -S --noconfirm file-roller unrar p7zip &>/dev/null
 }
 
 fonts () {
 	echo "Installing fonts:"
 	# Fallback font for applications
 	echo "Installing DejaVu Sans Mono..."
-	pacman -S --noconfirm ttf-dejavu >/dev/null
+	pacman -S --noconfirm ttf-dejavu &>/dev/null
 	# Terminal font
 	echo "Installing Adobe Source Code Pro..."
-	pacman -S --noconfirm adobe-source-code-pro-fonts >/dev/null
+	pacman -S --noconfirm adobe-source-code-pro-fonts &>/dev/null
 	# Polybar font
 	echo "Installing Bitstream Vera Sans Mono..."
-	pacman -S --noconfirm ttf-bitstream-vera >/dev/null
+	pacman -S --noconfirm ttf-bitstream-vera &>/dev/null
 	# Font for non-latin unicode characters
 	echo "Installing Adobe Source Han Serif fonts..."
-	pacman -S --noconfirm adobe-source-han-serif-otc-fonts >/dev/null
+	pacman -S --noconfirm adobe-source-han-serif-otc-fonts &>/dev/null
 	# Google fonts for websites to render correctly
 	echo "Installing Google Noto fonts..."
-	pacman -S --noconfirm noto-fonts >/dev/null
+	pacman -S --noconfirm noto-fonts &>/dev/null
 	# Icon font
 	echo "Installing Font Awesome..."
-	pacman -S --noconfirm ttf-font-awesome >/dev/null
+	pacman -S --noconfirm ttf-font-awesome &>/dev/null
 }
 
 i3deps () {
 	echo "Installing i3-gaps and dependencies used in my config:" 
 	echo "Installing i3-gaps..."
-	pacman -S --noconfirm i3-gaps >/dev/null
+	pacman -S --noconfirm i3-gaps &>/dev/null
 	echo "Adding i3-gaps to xinit..."
-	pacman -S --noconfirm xorg-xinit >/dev/null
+	pacman -S --noconfirm xorg-xinit &>/dev/null
 	echo "exec i3" >> /home/"$dotusr"/.xinitrc
 	echo "Installing rofi..."
-	pacman -S --noconfirm rofi >/dev/null
+	pacman -S --noconfirm rofi &>/dev/null
 	# Audio and brightness controls
 	if [[ "$lappy" = true ]]; then
-		su -c 'yay -S --noconfirm pulseaudio-ctl' "$dotusr" >/dev/null
-		su -c 'yay -S --noconfirm brightnessctl' "$dotusr" >/dev/null
+		su -c 'yay -S --noconfirm pulseaudio-ctl' "$dotusr" &>/dev/null
+		su -c 'yay -S --noconfirm brightnessctl' "$dotusr" &>/dev/null
 	fi
 	echo "Installing compton compositor..."
-	pacman -S --noconfirm compton >/dev/null
+	pacman -S --noconfirm compton &>/dev/null
 	echo "Installing programs for taking and saving screenshots..."
-	pacman -S --noconfirm maim xclip >/dev/null
+	pacman -S --noconfirm maim xclip &>/dev/null
 	echo "Installing programs for locking the screen..."
-	su -c 'yay -S --noconfirm i3lock-fancy-git' "$dotusr" >/dev/null
+	su -c 'yay -S --noconfirm i3lock-fancy-git' "$dotusr" &>/dev/null
 }
 
 deploy () {
@@ -162,6 +162,7 @@ pbdeploy () {
 
 
 # Main script
+clear
 echo "Would you like to deploy the entire rice, or (a) certain part(s) of it?"
 echo "Input Y to deploy the entire rice, or N to see a list of specific parts to deploy."
 while ! [[ "$input" = true ]]; do
