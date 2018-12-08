@@ -9,5 +9,5 @@ cp ~/.config/compton.conf ~/.git/i3-rice/compton
 cp ~/.zshrc ~/.git/i3-rice
 cd ~/.git/i3-rice
 git add .
-git commit -S
+git commit
 git push
