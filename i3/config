@@ -189,3 +189,4 @@ for_window [class="Termite"] floating enable # Floating terminal
 # General shortcuts
 bindsym ctrl+$mod+f exec firefox # Start firefox
 bindsym ctrl+$mod+d exec discord # Start discord
+bindsym ctrl+$mod+c exec code # Start VSC
