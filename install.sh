@@ -110,11 +110,20 @@ i3deps () {
 	echo "Installing i3-gaps and dependencies used in my config:" 
 	echo "Installing i3-gaps..."
 	pacman -S --noconfirm i3-gaps &>/dev/null
-	echo "Adding i3-gaps to xinit..."
+	echo "Installing termite..."
+	pacman -S --noconfirm termite &>/dev/null
+	echo "Installing pywal..."
+	pacman -S --noconfirm python-pywal &>/dev/null
+	echo "Adding i3-gaps and pywal to xinit..."
 	pacman -S --noconfirm xorg-xinit &>/dev/null
+	echo "wal -R" >> /home/"$dotusr"/.xinitrc
 	echo "exec i3" >> /home/"$dotusr"/.xinitrc
 	echo "Installing rofi..."
 	pacman -S --noconfirm rofi &>/dev/null
+	echo "Installing zsh..."
+	pacman -S --noconfirm zsh &>/dev/null
+	su -c 'sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"' "$dotusr" &>/dev/null
+	rm /home/"$dotusr"/.zshrc.pre-oh-my-zsh
 	# Audio and brightness controls
 	if [[ "$lappy" = true ]]; then
 		su -c 'yay -S --noconfirm pulseaudio-ctl' "$dotusr" &>/dev/null
@@ -124,32 +133,17 @@ i3deps () {
 	pacman -S --noconfirm compton &>/dev/null
 	echo "Installing programs for taking and saving screenshots..."
 	pacman -S --noconfirm maim xclip &>/dev/null
-	echo "Installing programs for locking the screen..."
+	echo "Installing program for locking the screen..."
 	su -c 'yay -S --noconfirm i3lock-fancy-git' "$dotusr" &>/dev/null
-}
-
-terminal () {
-	echo "Installing terminal emulator and related programs:"
-	echo "Installing termite..."
-	pacman -S --noconfirm termite &>/dev/null
-	echo "Installing ranger"
-	pacman -S --noconfirm ranger &>/dev/null
-	echo "Installing pywal"
-	pacman -S --noconfirm python-pywal &>/dev/null
 }
 
 deploy () {
 	echo "Deploying config files and other data:"
-	echo "Copying i3 config..."
-	mkdir /home/"$dotusr"/.config/i3
-	cp ./i3/config /home/"$dotusr"/.config/i3/config
-	echo "Copying termite config..."
-	mkdir /home/"$dotusr"/.config/termite
-	cp ./termite/config /home/"$dotusr"/.config/termite/config
-	echo "Copying compton config..."
-	cp ./compton/compton.conf /home/"$dotusr"/.config/compton.conf
-	echo "Copying zshrc..."
+	echo "Deploying config files..."
+	cp -r ./.config /home/"$dotusr"/.config
+	cp -r ./.vim /home/"$dotusr"/.vim
 	cp ./.zshrc /home/"$dotusr"/.zshrc
+	cp ./.vimrc /home/"$dotusr"/.vimrc
 	echo "Copying pacman hooks..."
 	mkdir /etc/pacman.d/hooks
 	cp ./pacman/hooks/* /etc/pacman.d/hooks
@@ -159,6 +153,9 @@ deploy () {
 	echo "Copying wallpapers..."
 	mkdir /home/"$dotusr"/Pictures/.wallpapers
 	cp ./wallpapers/* /home/"$dotusr"/Pictures/.wallpapers
+	echo "Setting default wallpaper"
+	pacman -S --noconfirm feh &>/dev/null
+	feh --bg-scale /home/"$dotusr"/Pictures/.wallpapers/abstract_wallpenis.jpg
 }
 
 pbdeploy () {
@@ -167,8 +164,6 @@ pbdeploy () {
 	sleep 1
 	su -c 'yay -S polybar' "$dotusr"
 	pacman -S --noconfirm jsoncpp >/dev/null
-	mkdir /home/"$dotusr"/.config/polybar
-	cp ./polybar/* /home/"$dotusr"/.config/polybar
 	chmod +x /home/"$dotusr"/.config/polybar/launch.sh
 }
 
