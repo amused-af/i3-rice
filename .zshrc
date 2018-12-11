@@ -43,3 +43,6 @@ fi
 
 # Set correct tty for GPG to use (not sure if this is necessary)
 export GPG_TTY=$(tty)
+
+# Import wal colorscheme asynchronously
+(cat ~/.cache/wal/sequences &)

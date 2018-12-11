@@ -19,18 +19,12 @@
 [colors]
 ; Transparent
 background = #80000000
-; Dark gray
-background-alt = #444
-; Cream/White
-foreground = #33CAFF 
-; Light gray
-foreground-alt = #555
-; Yellow
-primary = #ffb52a
 ; Teal
-secondary = #008080
+foreground = ${xrdb:color6:#222}
+; Light gray
+foreground-alt = ${xrdb:color7:#222}
 ; Red
-alert = #bd2c40
+alert = ${xrdb:color3:#222}
 
 [bar/bar1]
 width = 100%
@@ -50,7 +44,7 @@ padding-right = 2
 module-margin-left = 1
 module-margin-right = 2
 
-font-0 = Bitstream Vera:style=Bold:pixelsize=11;3
+font-0 = SF Pro Display:style=Bold:pixelsize=12;3
 font-1 = Font Awesome 5 Free:style=Regular:pixelsize=11;3
 font-2 = Font Awesome 5 Free:style=Solid:pixelsize=11;3
 font-3 = Font Awesome 5 Brands:pixelsize=11;3
@@ -90,6 +84,7 @@ interval = 25
 mount-0 = /
 
 label-mounted = %{F#0a81f5}%mountpoint%%{F-}: %percentage_used%%
+label-mounted-foregrond=${colors.foreground}
 label-unmounted = %mountpoint% not mounted
 label-unmounted-foreground = ${colors.foreground-alt}
 
@@ -101,7 +96,7 @@ wrapping-scroll = false
 
 label-mode-padding = 2
 label-mode-foreground = #000
-label-mode-background = ${colors.primary}
+label-mode-background = ${colors.background}
 
 ; focused = Active workspace on focused monitor
 label-focused = %index%
@@ -181,23 +176,6 @@ animation-charging-1 = 
 animation-charging-2 = 
 animation-charging-foreground = ${colors.foreground}
 animation-charging-framerate = 750
-
-[module/temperature]
-type = internal/temperature
-thermal-zone = 0
-warn-temperature = 60
-
-format = <ramp> <label>
-format-warn = <ramp> <label-warn>
-
-label = %temperature-c%
-label-warn = %temperature-c%
-label-warn-foreground = ${colors.secondary}
-
-ramp-0 =
-ramp-1 =
-ramp-2 =
-ramp-foreground = ${colors.foreground-alt}
 
 [module/powermenu]
 type = custom/menu
