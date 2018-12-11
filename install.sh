@@ -92,9 +92,9 @@ fonts () {
 	# Terminal font
 	echo "Installing Adobe Source Code Pro..."
 	pacman -S --noconfirm adobe-source-code-pro-fonts &>/dev/null
-	# Polybar font
-	echo "Installing Bitstream Vera Sans Mono..."
-	pacman -S --noconfirm ttf-bitstream-vera &>/dev/null
+	# Polybar fontthought
+	echo "Installing Apple San Francisco"
+	su -c 'yay -S --noconfirm otf-san-francisco' "$dotusr" &>/dev/null
 	# Font for non-latin unicode characters
 	echo "Installing Adobe Source Han Serif fonts..."
 	pacman -S --noconfirm adobe-source-han-serif-otc-fonts &>/dev/null
@@ -126,6 +126,16 @@ i3deps () {
 	pacman -S --noconfirm maim xclip &>/dev/null
 	echo "Installing programs for locking the screen..."
 	su -c 'yay -S --noconfirm i3lock-fancy-git' "$dotusr" &>/dev/null
+}
+
+terminal () {
+	echo "Installing terminal emulator and related programs:"
+	echo "Installing termite..."
+	pacman -S --noconfirm termite &>/dev/null
+	echo "Installing ranger"
+	pacman -S --noconfirm ranger &>/dev/null
+	echo "Installing pywal"
+	pacman -S --noconfirm python-pywal &>/dev/null
 }
 
 deploy () {
@@ -181,6 +191,8 @@ while ! [[ "$input" = true ]]; do
 		clear
 		i3deps
 		clear
+		terminal
+		clear
 		deploy
 		clear
 		pbdeploy
@@ -206,8 +218,9 @@ echo "2. Driver installation"
 echo "3. File management tools installation"
 echo "4. Fonts installation"
 echo "5. i3 and dependencies used in my config installation"
-echo "6. Config deployment"
-echo "7. Polybar compiling and deployment"
+echo "6. Terminal emulator and related programs installation"
+echo "7. Config deployment"
+echo "8. Polybar compiling and deployment"
 
 while ! [[ "$input" = true ]]; do
 	read selection
@@ -233,10 +246,14 @@ while ! [[ "$input" = true ]]; do
 		input=true
 	fi
 	if [[ "$selection" = *"6"* ]]; then
-		deploy
+		terminal
 		input=true
 	fi
 	if [[ "$selection" = *"7"* ]]; then
+		deploy
+		input=true
+	fi
+	if [[ "$selection" = *"8"* ]]; then
 		pbdeploy
 		input=true
 	fi
