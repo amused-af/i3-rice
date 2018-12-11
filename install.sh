@@ -139,7 +139,7 @@ i3deps () {
 
 deploy () {
 	echo "Deploying config files and other data:"
-	echo "Deploying config files..."
+	echo "Copying config files..."
 	cp -r ./.config /home/"$dotusr"/.config
 	cp -r ./.vim /home/"$dotusr"/.vim
 	cp ./.zshrc /home/"$dotusr"/.zshrc
