@@ -8,6 +8,7 @@ Dotfiles and other saved configurations for my i3-gaps rice.
 * [Compton](https://github.com/chjj/compton)
 * Zsh & [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh)
 * [Rofi](https://github.com/DaveDavenport/rofi)
+* [Pywal](https://github.com/dylanaraps/pywal)
 * [i3lock-fancy](https://github.com/meskarune/i3lock-fancy)
 * [maim](https://github.com/naelstrof/maim)
 
