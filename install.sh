@@ -213,9 +213,8 @@ echo "2. Driver installation"
 echo "3. File management tools installation"
 echo "4. Fonts installation"
 echo "5. i3 and dependencies used in my config installation"
-echo "6. Terminal emulator and related programs installation"
-echo "7. Config deployment"
-echo "8. Polybar compiling and deployment"
+echo "6. Config deployment"
+echo "7. Polybar compiling and deployment"
 
 while ! [[ "$input" = true ]]; do
 	read selection
@@ -246,10 +245,6 @@ while ! [[ "$input" = true ]]; do
 	fi
 	if [[ "$selection" = *"7"* ]]; then
 		deploy
-		input=true
-	fi
-	if [[ "$selection" = *"8"* ]]; then
-		pbdeploy
 		input=true
 	fi
 	if ! [[ "$input" = true ]]; then
