@@ -1,8 +1,8 @@
 "Change default movement keys
-noremap ; l
-noremap l k
-noremap k j
-noremap j h
+"noremap ; l
+"noremap l k
+"noremap k j
+"noremap j h
 
 "P l u g
 if empty(glob('~/.vim/autoload/plug.vim'))

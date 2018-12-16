@@ -19,12 +19,9 @@
 [colors]
 ; Transparent
 background = #80000000
-; Teal
 foreground = ${xrdb:color6:#222}
-; Light gray
 foreground-alt = ${xrdb:color7:#222}
-; Red
-alert = ${xrdb:color3:#222}
+alert = ${xrdb:color2:#222}
 
 [bar/bar1]
 width = 100%
