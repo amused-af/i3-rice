@@ -14,8 +14,8 @@ fi
 # Welcome and platform check
 clear
 echo "Welcome to my automatic rice deployment script."
-echo "Are you running this script on a laptop? Input Y or N."
 while ! [[ "$input" = true ]]; do
+	echo "Are you running this script on a laptop? Input Y or N."
 	read laptop
 	if [[ "$laptop" = Y ]] || [[ "$laptop" = y ]]; then
 		lappy=true
@@ -49,24 +49,33 @@ init () {
 }
 
 drivers () {
-	echo "Which drivers would you like to install?"
-	echo "Input A for AMD, I for intel integrated graphics, or N for nvidia"
 	while ! [[ "$input" = true ]]; do
+		echo "Which drivers would you like to install?"
+		echo "Input A for AMD, I for intel integrated graphics, or N for nvidia"
 		read gpu
 		if [[ "$gpu" = A ]] || [[ "$gpu" = a ]]; then
 			echo "Installing AMD open source drivers..."
 			pacman -S --noconfirm xf86-video-amdgpu mesa &>/dev/null
+			pacman -S --noconfirm xorg-server &>/dev/null
+			pacman -S --noconfirm xorg-xrandr &>/dev/null
+			pacman -S --noconfirm arandr &>/dev/null
 			input=true
 		fi
 		if [[ "$gpu" = I ]] || [[ "$gpu" = i ]]; then
 			echo "Intel graphics will work best with Xorg's built-in modesetting driver, so there's no need to install an independent driver."
 			echo "Installing mesa..."
 			pacman -S --noconfirm mesa &>/dev/null
+			pacman -S --noconfirm xorg-server &>/dev/null
+			pacman -S --noconfirm xorg-xrandr &>/dev/null
+			pacman -S --noconfirm arandr &>/dev/null
 			input=true
 		fi
 		if [[ "$gpu" = N ]] || [[ "$gpu" = n ]]; then
 			echo "Installing Nvidia drivers and utilities..."
 			pacman -S --noconfirm nvidia nvidia-utils &>/dev/null
+			pacman -S --noconfirm xorg-server &>/dev/null
+			pacman -S --noconfirm xorg-xrandr &>/dev/null
+			pacman -S --noconfirm arandr &>/dev/null
 			input=true
 		fi
 		if ! [[ "$input" = true ]]; then
@@ -155,7 +164,7 @@ deploy () {
 	cp ./wallpapers/* /home/"$dotusr"/Pictures/.wallpapers
 	echo "Setting default wallpaper"
 	pacman -S --noconfirm feh &>/dev/null
-	feh --bg-scale /home/"$dotusr"/Pictures/.wallpapers/abstract_wallpenis.jpg
+	wal -i /home/"$dotusr"/Pictures/.wallpapers/abstract_wallpenis.jpg &>/dev/null
 }
 
 pbdeploy () {
@@ -170,9 +179,9 @@ pbdeploy () {
 
 # Main script
 clear
-echo "Would you like to deploy the entire rice, or (a) certain part(s) of it?"
-echo "Input Y to deploy the entire rice, or N to see a list of specific parts to deploy."
 while ! [[ "$input" = true ]]; do
+	echo "Would you like to deploy the entire rice, or (a) certain part(s) of it?"
+	echo "Input Y to deploy the entire rice, or N to see a list of specific parts to deploy."
 	read fulldeploy
 	if [[ "$fulldeploy" = Y ]] || [[ "$fulldeploy" = y ]]; then
 		clear
@@ -185,8 +194,6 @@ while ! [[ "$input" = true ]]; do
 		fonts
 		clear
 		i3deps
-		clear
-		terminal
 		clear
 		deploy
 		clear
@@ -240,11 +247,11 @@ while ! [[ "$input" = true ]]; do
 		input=true
 	fi
 	if [[ "$selection" = *"6"* ]]; then
-		terminal
+		deploy
 		input=true
 	fi
 	if [[ "$selection" = *"7"* ]]; then
-		deploy
+		pbdeploy
 		input=true
 	fi
 	if ! [[ "$input" = true ]]; then
