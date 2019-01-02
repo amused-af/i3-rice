@@ -88,9 +88,12 @@ drivers () {
 }
 
 mgmnt () {
-	echo "Installing programs for package and file management:"
+	echo "Installing programs for file management:"
 	echo "Installing archiver..."
 	pacman -S --noconfirm file-roller unrar p7zip &>/dev/null
+	echo "Installing file manager and plugins..."
+	pacman -S --noconfirm thunar &>/dev/null
+	pacman -S --noconfirm tumbler &>/dev/null
 }
 
 fonts () {
