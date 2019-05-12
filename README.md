@@ -1,5 +1,5 @@
 # i3-rice
-Dotfiles and other saved configurations for my i3-gaps rice.
+Dotfiles and other saved configurations for my **(OLD)** i3-gaps rice.
 
 ## Programs I use in my rice
 * [i3-gaps](https://github.com/Airblader/i3)
@@ -14,34 +14,9 @@ Dotfiles and other saved configurations for my i3-gaps rice.
 
 ## Distro specific files
 1. [Pacman](pacman) contains configs and hooks for use with pacman, which will only be useful on Arch Linux based distributions.
-2. [Install.sh](install.sh) will automatically install and set up this rice on a fresh installation of *any Arch Linux based distro*. It cannot and will not work on other distributions.
 
-# Installation
-1. Using visudo, uncomment the line `%wheel ALL=(ALL) NOPASSWD: ALL`. **_Don't uncomment the line above it instead. This will prevent the install script from working properly due to a flaw in how `su` works._**
-![visudo](screenshots/visudo.png)
-2. Create a normal user that's part of the `wheel` group.
-```
-# useradd -m -G wheel fooman
-```
-3. Install `git` and `yay`.
-```
-# pacman -S git
-# su fooman
-$ cd ~
-$ git clone https://aur.archlinux.org/yay.git
-$ cd yay
-$ makepkg -sri
-$ cd ..
-$ rm -rf yay
-$ exit
-```
-4. Finally, clone this repo and run [install.sh](install.sh) as root.
-```
-# git clone https://github.com/amused-af/i3-rice.git
-# cd i3-rice
-# chmod +x install.sh
-# ./install.sh
-```
+# Important note
+[Install.sh](install.sh) is very, very broken and should not be used at all costs. I'm going to be repurposing some working snippets from it as individual scripts [in my new rice](https://github.com/amused-af/i3-rice).
 
 ## Screenshots
 ![Clean](screenshots/clean.png "Clean")
